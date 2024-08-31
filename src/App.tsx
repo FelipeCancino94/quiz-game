@@ -1,14 +1,22 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
-import FormQuiz from './FormQuiz/FormQuiz';
+
+import FormOptions from './components/FormOptions';
+import FormTrue from './components/FormTrueorFalse';
+import Home from './components/Home1';
 
 function App() {
   return (
-    <div className="App">
-      <FormQuiz />
-    </div>
+    <Router>
+      <div className="App">
+        <Home />
+      </div>
+     
+    </Router>
+    
   );
 }
 
