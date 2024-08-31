@@ -1,31 +1,19 @@
 import React from "react";
+import { collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
-
+import { db } from '../connections/fbConnect.js';
+ 
 function QuizList() {
   const [questions, setQuestions] = useState([]);
-  const url = 'http://localhost:8080';
-
-  const parseOptions = () => {
-    questions.forEach((question:any) => {
-      console.log(JSON.parse(question.options));
-    });
-  }
+  
   useEffect(() => {
+    const questionsRef = collection(db, 'quiz_questions');
     const getData = async () => {
-      try {
-        await fetch(`${ url }/api/questions`)
-          .then(response => response.json())
-          .then(response => {
-            /* const data = response;
-            data.options = JSON.parse(response.options); */
-            setQuestions(response);
-            //console.log(response)
-          })
-          .catch(error => console.error(error));
-      } catch (error) {
-        console.error('Error al obtener las preguntas: ', error);
-      }
-    }
+      const querySnapshot:any = await getDocs(questionsRef);
+      const data:any = querySnapshot.docs.map((doc:any) => ({ ...doc.data(), id: doc.id }));
+      setQuestions(data);
+      console.log(data);
+    };
 
     getData();
   }, [])
@@ -37,9 +25,18 @@ function QuizList() {
         {
           questions.map((question:any) => (
             <li key={ question.id }>
-              <p>Pregunta: { question.question }</p>
-              <p>Categoria: { question.question_type }</p>
-              <button onClick={ () => { parseOptions() } }>Click here!</button>
+              <div className="question" id={ question.id }>
+                <h2 className="text-3xl">{ question.question }</h2>
+                <ul>
+                  {
+                    question.options.map((option:any, index:number) => (
+                      <li key={ `option__${ option.id }` } id={ option.id }>
+                        { index + 1 }. { option.label }
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
             </li>
           )) 
         }
