@@ -1,12 +1,14 @@
 import React from "react";
+import { CreateQuestion } from '../components/CreateQuestions';
+import { Link } from "react-router-dom";
+import { ModalFormOpt } from "../components/ModalFormOpt";
 
 function FormTrueFalse (){
     return (
         <>
         <form className="form w-full md:w-1/2 m-auto px-5">
           <h1 className="text-center text-xl my-9 font-bold text-emerald-600"> Ingresa la pregunta</h1>
-          <h3 className=" text-emerald-600">Escribe tu pregunta</h3>
-          <input name='question' className=" w-full py-1 my-2 rounded-md border-b-4 border-red-500 me-3 bg-slate-50" type="text" ></input>
+          <CreateQuestion></CreateQuestion>
           <div className="form-control">
             <label className="label cursor-pointer w-11">
               <span className="label-text">Verdadero</span>
@@ -20,9 +22,10 @@ function FormTrueFalse (){
             </label>
           </div>
           <button className="btn btn-outline btn-error mt-3">Enviar</button>
+          <Link to="/"  className="btn btn-outline btn-error mt-3">Volver al inicio</Link >
         </form>
         </>
     )
 }
 
-export default FormTrueFalse;
+export {FormTrueFalse};
