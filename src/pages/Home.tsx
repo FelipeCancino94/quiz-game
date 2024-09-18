@@ -1,5 +1,4 @@
 import React from "react";
-
 import {Link} from 'react-router-dom';
 import QuizList from "../QuizList/QuizList";
 
@@ -26,11 +25,8 @@ function Home () {
                  </ul>
             </div>
             </div>
-           
         </div>
-        </div>
-       
-      
+        </div>    
        </> 
     )
     

@@ -1,14 +1,14 @@
 import React from "react";
 import { CreateQuestion } from '../components/CreateQuestions';
 import { Link } from "react-router-dom";
-import { ModalFormOpt } from "../components/ModalFormOpt";
+import ModalForm from "../components/ModalForm";
 
 function FormTrueFalse (){
     return (
         <>
         <form className="form w-full md:w-1/2 m-auto px-5">
           <h1 className="text-center text-xl my-9 font-bold text-emerald-600"> Ingresa la pregunta</h1>
-          <CreateQuestion></CreateQuestion>
+          <CreateQuestion/>
           <div className="form-control">
             <label className="label cursor-pointer w-11">
               <span className="label-text">Verdadero</span>
