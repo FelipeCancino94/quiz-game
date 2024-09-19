@@ -1,21 +1,37 @@
 import React from "react";
-import { collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { db } from '../connections/fbConnect.js';
+
+import GetQueries from "../Queries/GetQueries";
  
 function QuizList() {
-  const [questions, setQuestions] = useState([]);
+  /* INTERFACE */
+  interface Options {
+    id: number,
+    is_response: boolean,
+    label: string
+  }
+
+  interface Question {
+    id: string,
+    options: Options,
+    question: string
+  }
+
+  const [questions, setQuestions] = useState<Question[]>([]);
   
   useEffect(() => {
-    const questionsRef = collection(db, 'quiz_questions');
-    const getData = async () => {
-      const querySnapshot:any = await getDocs(questionsRef);
-      const data:any = querySnapshot.docs.map((doc:any) => ({ ...doc.data(), id: doc.id }));
-      setQuestions(data);
-      console.log(data);
-    };
-
-    getData();
+    GetQueries()
+      .then((response) => {
+        if (response.length > 0) {
+          setQuestions(response);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        console.log('End Query!');
+      });
   }, [])
 
   return (
