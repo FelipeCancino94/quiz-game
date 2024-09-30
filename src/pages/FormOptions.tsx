@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import ModalForm from '../components/ModalForm';
 import  BtnBackHome  from '../components/btnBackHome';
+import { useModal } from '../hooks/useModal';
+
 
 
 function FormOptions() {
-  
-  const IdNumber = [1,2,3,4];
-
-    interface Params {
-      question:any,
+  interface Params {
+      question:string,
       options:Array<object>
     }
+  const [isOpen, openModal, closeModal]= useModal(false);
+  const [question, setQuestion] = useState (Object);
+  const IdNumber = [1,2,3,4];
 
   function saveData (){
+    
     const params:Params = {
       question: (document.querySelector('#question') as HTMLInputElement).value,
       options: []
@@ -30,26 +33,26 @@ function FormOptions() {
         params.options.push(optionsObject);
       }
     });
-    console.log(params);
-    
+    setQuestion(params);
+
   }
 
   return (
     <>
-      <div className="form w-full md:w-1/2 m-auto px-5">
+      <div className="form w-full md:w-1/2 m-auto p-14 bg-slate-100 h-full">
         <div>
           <h3 className=" text-emerald-600">Escribe tu pregunta</h3>
-          <input name='question' className=" w-full py-1 my-2 rounded-md border-b-4 border-red-500 me-3 bg-slate-50" type="text" id="question"></input>
+          <input name='question' className="text-black w-full py-1 my-2 rounded-md border-b-4 border-red-500 me-3 bg-slate-50" type="text" id="question"></input>
         </div>
       <div className='opc-answer'>
         {
           IdNumber.map((id) => (
-            <div className="flex flex-col ">
+            <div className="flex flex-col " key={ `option__${id }`}>
               <label htmlFor={`${id }`} className=" text-emerald-600 my-2">Opcion {id}</label>
                 <div className='flex flex-row'>
-                  <input name={`option_${id }`}  id={`${id }`} key={ `option__${id }`} type="text" className='w-4/5 border-orange-200 me-14 py-1 rounded-md border-b-4 bg-slate-50 input_option'></input>
+                  <input name={`option_${id }`}  id={`${id }`} key={ `option__${id }`} type="text" className='text-black w-4/5 border-orange-200 me-14 py-1 rounded-md border-b-4 bg-slate-50 input_option'></input>
                   {
-                    (id==1? <input type="radio" name='option-radio' className="radio radio-error input_radio" defaultChecked></input>:<input type="radio" name='option-radio' className="radio radio-error input_radio" ></input>)
+                    (id==1? <input type="radio" name='option-radio' className="radio  input_radio" defaultChecked></input>:<input type="radio" name='option-radio' className="radio  input_radio" ></input>)
                   }
                  
                 </div>
@@ -57,13 +60,25 @@ function FormOptions() {
             ))
           }
         </div>  
-
-        <button type='button' onClick={saveData} className="btn btn-outline btn-error mt-3">Enviar</button>
-        <ModalForm/>
-     
+        <button type='button' onClick={()=> {
+          openModal();
+          saveData(); 
+        }} className="btn btn-outline btn-error mt-3">
+          Enviar
+      </button>
         < BtnBackHome />
       </div>
-
+      <ModalForm isOpen = {isOpen} closeModal={closeModal}>
+        <h2>Resumen de tu pregunta</h2>
+        <p>Tu pregunta es: {question.question} </p>
+        <div>
+          {question.options && question.options.map((option:any, index:number) => (
+             <p key={index}>
+               {option.is_response ?`La respuesta correcta es ${index + 1}: ${option.label}`:
+                 `La opcion ${index + 1} es: ${option.label}`}</p>
+              ))}
+       </div> 
+      </ModalForm>
     </>
   );
 }
