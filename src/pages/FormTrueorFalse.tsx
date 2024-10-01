@@ -12,13 +12,13 @@ function FormTrueFalse (){
           <div className="form-control">
             <label className="label cursor-pointer w-11">
               <span className="label-text">Verdadero</span>
-              <input type="radio" name="radio-10" className="radio checked:bg-green-700 ms-4" defaultChecked />
+              <input type="radio" name="radio" className="radio checked:bg-green-700 ms-4" defaultChecked />
             </label>
           </div>
           <div className="form-control">
             <label className="label cursor-pointer w-11">
               <span className="label-text ">Falso</span>
-              <input type="radio" name="radio-10" className="radio  checked:bg-red-500 ms-4" defaultChecked />
+              <input type="radio" name="radio" className="radio  checked:bg-red-500 ms-4" />
             </label>
           </div>
           <button className="btn btn-outline btn-error mt-3">Enviar</button>
