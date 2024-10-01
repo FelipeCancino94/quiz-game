@@ -19,7 +19,7 @@ function Home () {
             <div className="divider divider-horizontal">O</div>
             <div tabIndex={0} role="button"  className="dropdown  text-green-600 dropdown-top bg-slate-100 px-4 rounded-box grid flex-grow place-items-center">
                 Crear pregunta
-                <ul tabIndex={0} className="dropdown-content  menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                <ul tabIndex={0} className="dropdown-content  menu bg-white rounded-box z-[1] w-auto mb-1 shadow">
                     <li><Link to="/FormOptions"  >Pregunta de opcion multiple</Link></li>
                     <li><Link to="/FormTrueFalse" >Pregunta verdadero o falso</Link></li>
                  </ul>

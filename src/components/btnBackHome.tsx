@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 function BtnBackHome (){
   return (
     <>
-      <Link to="/"  className="btn btn-outline btn-error m-3">Volver al inicio</Link >
+      <Link to="/" className="btn text-white btn-warning m-3">Volver al inicio</Link >
     </> 
   )
     
