@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
 import ModalForm from '../components/ModalForm';
-import  BtnBackHome  from '../components/btnBackHome';
+import BtnBackHome  from '../components/btnBackHome';
+import PostQueries from '../Queries/PostQueries';
 import { useModal } from '../hooks/useModal';
 
 
 
 
 function FormOptions() {
+  
+  const IdNumber = [1,2,3,4];
+
+  interface Options {
+    id: number,
+    is_response: boolean,
+    label: string
+  }  
   interface Params {
-      question:string,
-      options:Array<object>
-    }
+    question:any,
+    options:Options[]
+  }
+
   const [isOpen, openModal, closeModal]= useModal(false);
   const [question, setQuestion] = useState (Object);
-  const IdNumber = [1,2,3,4];
 
   function saveData (){
     
@@ -27,15 +36,25 @@ function FormOptions() {
     allOptionsInput.forEach((input, index) => {
       if ((input as HTMLInputElement).value !== '') {
         const optionsObject = {
-          id: input.getAttribute('id'),
+          id: Number(input.getAttribute('id')),
           is_response: (allRadioOptionsInput[index] as HTMLInputElement).checked,
           label: (input as HTMLInputElement).value
         };
         params.options.push(optionsObject);
       }
     });
-    setQuestion(params);
-
+    
+    // Post endpoint
+    PostQueries(params)
+      .then((response) => {
+        if (response) {
+          // Alejita aca decides que hacer despues de guardar la pregunta
+          console.log(`Se registro la pregunta exitosamente con el ID: ${response}`);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
   }
 
   return (
