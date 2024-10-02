@@ -9,5 +9,9 @@ module.exports = {
   plugins: [
     require('daisyui'),
   ],
+  daisyui: {
+    themes: ["light"], // Solo incluya el tema claro
+    darkTheme: false, // Desactiva explícitamente el tema oscuro
+  },
 }
 
