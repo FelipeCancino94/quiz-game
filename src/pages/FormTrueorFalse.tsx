@@ -8,7 +8,10 @@ function FormTrueFalse (){
         <>
         <form className="form w-full md:w-1/2 m-auto px-5">
           <h1 className="text-center text-xl my-9 font-bold text-emerald-600"> Ingresa la pregunta</h1>
-          <CreateQuestion/>
+          <div>
+            <h3 className=" text-emerald-600">Escribe tu pregunta</h3>
+            <input name='question' id="question" className=" w-full py-1 my-2 rounded-md border-b-4 border-red-500 me-3 bg-slate-50" type="text" ></input>
+          </div>
           <div className="form-control">
             <label className="label cursor-pointer w-11">
               <span className="label-text">Verdadero</span>

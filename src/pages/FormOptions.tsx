@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import ModalForm from '../components/ModalForm';
 import BtnBackHome  from '../components/btnBackHome';
-import PostQueries from '../Queries/PostQueries';
 import { useModal } from '../hooks/useModal';
+import { useLocation } from 'react-router-dom';
 
 
 
 
 function FormOptions() {
-  
+  const location = useLocation();
+  const {typeForm}= location.state;
+  console.log(typeForm);
   const IdNumber = [1,2,3,4];
 
   interface Options {
@@ -17,7 +19,7 @@ function FormOptions() {
     label: string
   }  
   interface Params {
-    question:any,
+    question:string,
     options:Options[]
   }
 
@@ -41,20 +43,10 @@ function FormOptions() {
           label: (input as HTMLInputElement).value
         };
         params.options.push(optionsObject);
+        setQuestion(params);
       }
     });
     
-    // Post endpoint
-    PostQueries(params)
-      .then((response) => {
-        if (response) {
-          // Alejita aca decides que hacer despues de guardar la pregunta
-          console.log(`Se registro la pregunta exitosamente con el ID: ${response}`);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      })
   }
 
   return (
@@ -66,9 +58,16 @@ function FormOptions() {
         </div>
       <div className='opc-answer'>
         {
-          IdNumber.map((id) => (
+          typeForm === "trueFalse" ? 
+          <div>
+            <input type="radio" name='option-radio' id='false' className="radio radio-warning input_radio" defaultChecked>Verdadero</input>
+            <input type="radio" name='option-radio' id='true' className="radio radio-warning input_radio" defaultChecked>Verdadero</input>:
+          </div>
+          :
+         IdNumber.map((id) => (
             <div className="flex flex-col " key={ `option__${id }`}>
               <label htmlFor={`${id }`} className=" text-emerald-600 my-2">Opcion {id}</label>
+              
                 <div className='flex flex-row'>
                   <input name={`option_${id }`}  id={`${id }`} key={ `option__${id }`} type="text" className='text-black w-4/5 border-b-2 border-rose-500 me-14 py-1 rounded-md  input_option'></input>
                   {
@@ -78,17 +77,17 @@ function FormOptions() {
                 </div>
             </div>
             ))
-          }
+        }
         </div>  
-        <button type='button' onClick={()=> {
+        <button type='button' className="btn text-white btn-warning mt-3" onClick={()=> {
           openModal();
           saveData(); 
-        }} className="btn text-white btn-warning mt-3">
+        }} >
           Enviar
       </button>
         < BtnBackHome />
       </div>
-      <ModalForm isOpen = {isOpen} closeModal={closeModal}>
+      <ModalForm isOpen = {isOpen} closeModal={closeModal} params={question}>
         <h2>Resumen de tu pregunta</h2>
         <p>Tu pregunta es: {question.question} </p>
         <div>
@@ -103,7 +102,5 @@ function FormOptions() {
   );
 }
  
-
-
 
 export {FormOptions};
