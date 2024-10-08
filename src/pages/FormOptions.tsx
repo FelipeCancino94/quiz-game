@@ -3,14 +3,13 @@ import ModalForm from '../components/ModalForm';
 import BtnBackHome  from '../components/btnBackHome';
 import { useModal } from '../hooks/useModal';
 import { useLocation } from 'react-router-dom';
-
-
+import './FormOptions.css';
 
 
 function FormOptions() {
   const location = useLocation();
   const {typeForm}= location.state;
-  console.log(typeForm);
+ 
   const IdNumber = [1,2,3,4];
 
   interface Options {
@@ -44,11 +43,11 @@ function FormOptions() {
         };
         params.options.push(optionsObject);
         setQuestion(params);
+        
       }
     });
     
   }
-
   return (
     <>
       <div className="form w-full md:w-1/2 m-auto p-14 bg-slate-100 h-full">
@@ -56,12 +55,18 @@ function FormOptions() {
           <h3 className=" text-emerald-600 text-xl">Escribe tu pregunta</h3>
           <input name='question' className="text-black w-full py-1.5 my-2 rounded-md border-b-2 border-rose-500 me-3" type="text" id="question"></input>
         </div>
-      <div className='opc-answer'>
-        {
+        <div className='opc-answer'>
+         {
           typeForm === "trueFalse" ? 
-          <div>
-            <input type="radio" name='option-radio' id='false' className="radio radio-warning input_radio" defaultChecked>Verdadero</input>
-            <input type="radio" name='option-radio' id='true' className="radio radio-warning input_radio" defaultChecked>Verdadero</input>:
+          <div className='flex justify-start'>
+            <div className='flex align-middle'>
+              <input  className=" text-emerald-600 align-middle input_option input_true_false"  value='Verdadero'></input>
+              <input type="radio" name='option-radio' id='11' className="radio radio-success input_radio ms-1" defaultChecked></input>
+            </div>
+            <div className='flex align-middle'>
+              <input className=" text-red-600 align-middle ms-3 input_option input_true_false" value='Falso' ></input>
+              <input type="radio" name='option-radio' id='12' className="radio radio-error input_radio ms-1" ></input>
+            </div>
           </div>
           :
          IdNumber.map((id) => (
@@ -77,17 +82,19 @@ function FormOptions() {
                 </div>
             </div>
             ))
-        }
-        </div>  
+         }
+         </div>  
+
         <button type='button' className="btn text-white btn-warning mt-3" onClick={()=> {
           openModal();
           saveData(); 
         }} >
           Enviar
-      </button>
+        </button>
         < BtnBackHome />
       </div>
-      <ModalForm isOpen = {isOpen} closeModal={closeModal} params={question}>
+      
+      <ModalForm isOpen = {isOpen} closeModal={closeModal} params={question} typeForm={typeForm}>
         <h2>Resumen de tu pregunta</h2>
         <p>Tu pregunta es: {question.question} </p>
         <div>

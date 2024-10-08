@@ -6,7 +6,7 @@ import PostQueries from "../Queries/PostQueries";
 
 
 
-function ModalForm ({children, isOpen, closeModal,params}:any){
+function ModalForm ({children, isOpen, closeModal,params,typeForm}:any){
 
   return (
     <>
@@ -14,36 +14,27 @@ function ModalForm ({children, isOpen, closeModal,params}:any){
         <article className="bg-slate-400 max-h-screen w-screen">
           <div className={`modal-options ${isOpen ? "is-open" : " "}`} >
             <div className="modal-container">
-            {children}
-           
+              {children}
               <div className="flex">
-              <Link to="/FormOptions" type='button ' className="modal-close btn btn-outline btn-error m-3" onClick={()=>{
-              closeModal();
-                }}> 
-              Corregir preguntas
-             </Link>
-              <Link to="/FormOptions" type='button' className="btn btn-outline btn-error m-3" onClick={()=>{
-               closeModal();
-                const inputs = document.querySelectorAll('input');
-                inputs.forEach((input)=> input.value = "")
-                PostQueries(params)
-                .then((response) => {
-                  if (response) {
-                    // Alejita aca decides que hacer despues de guardar la pregunta
-                    alert(`Se registro la pregunta exitosamente`);
-                  }
-                })
-                .catch((error) => {
-                  console.error(error);
-                })
-               }}>
-               Enviar
-             </Link> 
+                <Link to="/FormOptions" type='button' state={{ typeForm: typeForm }} className="modal-close btn btn-outline btn-error m-3" onClick={()=>{
+                  closeModal();
+                  }}> Corregir preguntas
+                </Link>
+                <Link to="/FormOptions" state={{ typeForm: typeForm }} type='button' className="btn btn-outline btn-error m-3" onClick={()=>{
+                  closeModal();
+                  const inputs = document.querySelectorAll('input');
+                  inputs.forEach((input)=> input.value = "")
+                  PostQueries(params).then((response) => {
+                    if (response) {
+                      alert(`Se registro la pregunta exitosamente`);
+                    }
+                    }).catch((error) => {
+                    console.error(error);
+                    })
+                  }}> Enviar
+               </Link> 
+              </div>
             </div>
-             </div>
-          
-          
-          
           </div>
           
         </article>
