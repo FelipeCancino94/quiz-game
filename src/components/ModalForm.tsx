@@ -1,5 +1,4 @@
- import React from "react";
- import "./ModalForm.css";
+  import '../styles/ModalForm.css';
  import { Link } from "react-router-dom";
 import PostQueries from "../Queries/PostQueries";
 

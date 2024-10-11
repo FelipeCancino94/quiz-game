@@ -3,7 +3,7 @@ import ModalForm from '../components/ModalForm';
 import BtnBackHome  from '../components/btnBackHome';
 import { useModal } from '../hooks/useModal';
 import { useLocation } from 'react-router-dom';
-import './FormOptions.css';
+import '../styles/FormOptions.css';
 
 
 function FormOptions() {
@@ -60,11 +60,11 @@ function FormOptions() {
           typeForm === "trueFalse" ? 
           <div className='flex justify-start'>
             <div className='flex align-middle'>
-              <input  className=" text-emerald-600 align-middle input_option input_true_false"  value='Verdadero'></input>
+              <input  className=" text-emerald-600 align-middle input_option input_true_false"  value='Verdadero' id={`${Math.floor(Math.random()*10)}`}></input>
               <input type="radio" name='option-radio' id='11' className="radio radio-success input_radio ms-1" defaultChecked></input>
             </div>
             <div className='flex align-middle'>
-              <input className=" text-red-600 align-middle ms-3 input_option input_true_false" value='Falso' ></input>
+              <input className=" text-red-600 align-middle ms-3 input_option input_true_false" value='Falso' id={`${Math.floor(Math.random()*10)}`}></input>
               <input type="radio" name='option-radio' id='12' className="radio radio-error input_radio ms-1" ></input>
             </div>
           </div>
