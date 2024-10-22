@@ -13,7 +13,6 @@ function App() {
 
       <Routes>
         <Route path='/' element={<Home/>} />
-        <Route path='/QuizList' element={<QuizList/>} />
         <Route path='/FormOptions' element={<FormOptions/>}/>
         <Route path='/GameAlert' element={<GameAlert/>}/>
         <Route path='/GameStart' element={<GameStart/>}/>
